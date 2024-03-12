@@ -1,9 +1,9 @@
 CC = gcc
 CFLAGS = -Wall -g
 
-all: clean countdown
+all: countdown
 
-countdown:
+countdown: countdown.c
 	$(CC) $(CFLAGS) countdown.c -o countdown
 	
 .PHONY: clean
