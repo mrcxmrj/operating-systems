@@ -1,3 +1,5 @@
 #!/bin/bash
 make -C lab$1 clean
-tar cvzf compressed/ZurawelMarcin-cw0$1.tar.gz lab$1/*
+filename=ZurawelMarcin-cw0$1.tar.gz
+tar cvzf compressed/$filename lab$1/*
+cp compressed/$filename /mnt/c/Users/marci/Downloads/$filename 
