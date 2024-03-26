@@ -1,4 +1,5 @@
 #include <stdio.h>
+#define MAX_LINE_SIZE 1000
 
 int main() {
     FILE * input_file = fopen("art/pikachu.txt", "r");
@@ -8,20 +9,27 @@ int main() {
         return 1;
     }
 
-    char first_line[1000];
-    fgets(first_line, sizeof(first_line), input_file);
-    printf("%s", first_line);
-    while ( fgets(first_line, sizeof(first_line), input_file) != NULL ) {
+    char buffer[MAX_LINE_SIZE];
+    /* while (fseek(input_file, --i, SEEK_END) == 0) { */
+    /*     fread(&buffer, sizeof(char), 1, input_file); */
+    /*     fwrite(&buffer, sizeof(char), 1, output_file); */
+    /* } */
 
+    while (fgets(buffer, MAX_LINE_SIZE, input_file) != NULL) {
+        /* printf("Current buffer: %s\n", buffer); */
+        int last_index = 0;
+        while (buffer[last_index] != '\0')
+            last_index++;
+        /* int buffer_length = sizeof(buffer) / sizeof(buffer[0]); */
+        for (int i = last_index; i > 0; --i) {
+            printf("%c", buffer[i]);
+            fwrite(&buffer[i], sizeof(char), 1, output_file);
+        }
     }
-    // int current_character = fgetc(input_file);
-    // while (current_character != EOF) {
-    //     // printf("%c", current_character);
-    //     current_character = fgetc(input_file);
-    //     putc(current_character, output_file);
-    // }
 
     fclose(input_file);
+    fclose(output_file);
     input_file = NULL;
+    output_file = NULL;
     return 0;
 }
