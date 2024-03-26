@@ -1,35 +1,33 @@
 #include <stdio.h>
-#define MAX_LINE_SIZE 1000
+#include <stdlib.h>
+#include <dirent.h>
+#include <string.h>
+#include "reverse.h"
 
 int main() {
-    FILE * input_file = fopen("art/pikachu.txt", "r");
-    FILE * output_file = fopen("reversed/reversed_pikachu", "w");
-    if (!input_file) {
-        printf("Can't read file");
+    DIR *dir;
+    struct dirent *entry;
+
+    char input_dir_name[50] = "art/";
+    char output_dir_name[50] = "reversed/";
+    dir = opendir("art");
+    if (!dir) {
+        printf("Can't read directory");
         return 1;
     }
 
-    char buffer[MAX_LINE_SIZE];
-    /* while (fseek(input_file, --i, SEEK_END) == 0) { */
-    /*     fread(&buffer, sizeof(char), 1, input_file); */
-    /*     fwrite(&buffer, sizeof(char), 1, output_file); */
-    /* } */
-
-    while (fgets(buffer, MAX_LINE_SIZE, input_file) != NULL) {
-        /* printf("Current buffer: %s\n", buffer); */
-        int last_index = 0;
-        while (buffer[last_index] != '\0')
-            last_index++;
-        /* int buffer_length = sizeof(buffer) / sizeof(buffer[0]); */
-        for (int i = last_index; i > 0; --i) {
-            printf("%c", buffer[i]);
-            fwrite(&buffer[i], sizeof(char), 1, output_file);
+    while ((entry = readdir(dir)) != NULL) {
+        char* input_file_name = entry->d_name;
+        char input_file_path[] = "art/";
+        strcat(input_file_path, input_file_name);
+        if (strstr(input_file_name, ".txt") != NULL ) {
+            if (!reverse(input_file_path, input_file_name))
+                printf("Success!\n");
+            else
+                printf("Something went wrong :l\n");
         }
     }
 
-    fclose(input_file);
-    fclose(output_file);
-    input_file = NULL;
-    output_file = NULL;
+    closedir(dir);
     return 0;
 }
