@@ -6,4 +6,4 @@ reverse:
 	ar rcs libreverse.a reverse.o
 
 clean:
-	rm *.o *.a reversed/* flipper pikachu.txt notsure.txt isthisprogramming.txt
+	rm *.o *.a reversed/* flipper
