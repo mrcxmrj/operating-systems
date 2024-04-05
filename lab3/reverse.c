@@ -5,7 +5,11 @@ int reverse(char* input_path, char* output_path) {
     FILE* input_file = fopen(input_path, "r");
     FILE* output_file = fopen(output_path, "w");
     if (!input_file) {
-        printf("Can't read file %s\n", input_path);
+        printf("Can't read input file %s\n", input_path);
+        return 1;
+    }
+    if (!output_file) {
+        printf("Can't read output file %s\n", output_path);
         return 1;
     }
 
