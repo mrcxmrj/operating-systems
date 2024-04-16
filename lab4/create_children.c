@@ -9,11 +9,9 @@ int main(int argc, char* argv[]) {
     for (int i=0; i<count; i++) {
         pid_t child_pid;
         child_pid = fork();
-        /* if(child_pid != 0) { // child_pid == 0 when we're in the child */
-        /*     printf("Child PID: %d\n", child_pid); */
-        /* } */
         if(child_pid == 0) {
             printf("PID: %d, Parent PID: %d\n", getpid(), getppid());
+            return 0;
         }
     }
 
