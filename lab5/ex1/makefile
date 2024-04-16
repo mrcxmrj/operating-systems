@@ -1,4 +1,4 @@
-OBJECTS = create_children list_children
+OBJECTS = main
 FLAGS = -Wall -g
 
 all: main
