@@ -37,7 +37,6 @@ int main(int argc, char **argv) {
 
     while (!success);
 
-    printf("Confirmed changing to mode %d\n", received_mode);
-
+    printf("Confirmed changing to mode %d\n", mode);
     return 0;
 }

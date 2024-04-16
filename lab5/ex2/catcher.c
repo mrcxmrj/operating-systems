@@ -11,7 +11,7 @@ void handle_signal(int signum, siginfo_t *info, void *context) {
 
     switch (mode) {
         case 1:
-            for (int i = 1; i <= 100; ++i) {
+            for (int i = 2; i <= 100; ++i) {
                 printf("%d ", i);
             }
             printf("\n");

@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
         case 'h': // handle
             signal(SIGUSR1, handle_signal);
             break;
-        case 'm': {
+        case 'm': { // mask
                 sigset_t mask;
                 sigemptyset(&mask);
                 sigaddset(&mask, SIGUSR1);
