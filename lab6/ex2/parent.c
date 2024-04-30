@@ -11,25 +11,32 @@ int main() {
   mkfifo(FIFO_PATH, 0666);
 
   double start, end;
-  printf("Range (ie 0 1): ");
+  printf("Range (e.g. 0 1): ");
   scanf("%lf %lf", &start, &end);
 
-  int fd = open(FIFO_PATH, O_WRONLY);
+  pid_t child_pid = fork();
+  if (child_pid == 0) {
+    execl("./child", "child", (char *)NULL);
+    return -1;
+  } else {
 
-  char buffer[100];
-  sprintf(buffer, "%lf %lf", start, end);
-  write(fd, buffer, strlen(buffer));
-  close(fd);
+    int fd = open(FIFO_PATH, O_WRONLY);
 
-  fd = open(FIFO_PATH, O_RDONLY);
+    char buffer[100];
+    sprintf(buffer, "%lf %lf", start, end);
+    write(fd, buffer, strlen(buffer));
+    close(fd);
 
-  double result;
-  read(fd, &result, sizeof(result));
-  printf("Wynik obliczeń: %f\n", result);
+    fd = open(FIFO_PATH, O_RDONLY);
 
-  close(fd);
+    double result;
+    read(fd, &result, sizeof(result));
+    printf("Result: %f\n", result);
 
-  unlink(FIFO_PATH);
+    close(fd);
+
+    unlink(FIFO_PATH);
+  }
 
   return 0;
 }
