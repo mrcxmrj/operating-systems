@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  double total_sum = 0.0;
+  double total_sum = 0;
   for (int i = 0; i < num_processes; i++) {
     close(pipes[i][1]);
     double partial_sum;
