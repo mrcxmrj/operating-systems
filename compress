@@ -2,6 +2,7 @@
 fd -t f Makefile ./lab$1 -x sh -c 'cd "$(dirname "{}")" && make clean'
 
 filename=ZurawelMarcin-cw0$1.tar.gz
+mkdir -p compressed
 tar cvzf compressed/$filename lab$1/*
 
 if [[ $2 = "--wsl" ]]; then
